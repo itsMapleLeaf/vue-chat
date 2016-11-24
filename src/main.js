@@ -6,6 +6,7 @@ import App from './app.vue'
 import * as firebase from 'firebase'
 
 import 'vue-material/dist/vue-material.css'
+import 'global.css'
 
 Vue.use(VueMaterial)
 
@@ -13,7 +14,6 @@ Vue.material.theme.register('default', {
   primary: 'blue',
   accent: 'cyan'
 })
-
 
 firebase.initializeApp({
   apiKey: "AIzaSyCSJF99jCNQQTUOi2EXd9XU_ZgGGYP6U7Y",

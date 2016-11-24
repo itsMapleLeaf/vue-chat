@@ -17,17 +17,18 @@ export default {
     ChatInput,
   },
   data: () => ({
-    messages: [],
+    messages: {},
     chatInput: ''
   }),
   mounted() {
-    firebase.database()
-      .ref('messages')
-      .limitToLast(10)
-      .on('child_added', this.updateMessages)
+    const ref = firebase.database().ref('messages').limitToLast(10)
+    ref.on('child_added', this.addMessage)
+    ref.on('child_removed', this.deleteMessage)
   },
   destroyed() {
-    firebase.database().ref('messages').off('child_added', this.updateMessages)
+    const ref = firebase.database().ref('messages')
+    ref.off('child_added', this.addMessage)
+    ref.off('child_removed', this.deleteMessage)
   },
   methods: {
     async chatSubmit(text) {
@@ -38,8 +39,11 @@ export default {
       const ref = await db.ref('messages').push()
       await ref.set(message)
     },
-    updateMessages(data) {
-      this.messages.push(data.val())
+    addMessage(data) {
+      this.$set(this.messages, data.key, data.val())
+    },
+    deleteMessage(data) {
+      this.$delete(this.messages, data.key)
     }
   }
 }

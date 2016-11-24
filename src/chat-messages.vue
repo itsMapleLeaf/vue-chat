@@ -16,7 +16,7 @@
 export default {
   name: 'chat-messages',
   props: {
-    messages: Array,
+    messages: Object,
   }
 }
 </script>

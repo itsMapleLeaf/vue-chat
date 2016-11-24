@@ -8,6 +8,7 @@
 <script>
 import ChatMessages from './chat-messages.vue'
 import ChatInput from './chat-input.vue'
+import * as firebase from 'firebase'
 
 export default {
   name: 'app',
@@ -19,9 +20,20 @@ export default {
     messages: [],
     chatInput: ''
   }),
+  mounted() {
+    firebase.database().ref('messages').on('child_added', this.updateMessages)
+  },
   methods: {
-    chatSubmit(text) {
-      this.messages.push({ text, time: new Date().toLocaleTimeString(), })
+    async chatSubmit(text) {
+      const time = new Date().toLocaleTimeString()
+      const message = { text, time }
+
+      const db = firebase.database()
+      const ref = await db.ref('messages').push()
+      await ref.set(message)
+    },
+    updateMessages(data) {
+      this.messages.push(data.val())
     }
   }
 }

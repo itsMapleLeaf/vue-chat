@@ -16,8 +16,8 @@ export default {
     ChatMessages,
     ChatInput,
   },
-  data () {
-    return { messages: store.data.messages }
+  props: {
+    messages: Object,
   },
   methods: {
     async chatSubmit(text) {

@@ -17,8 +17,7 @@ export default {
     ChatInput,
   },
   data: () => ({
-    messages: {},
-    chatInput: ''
+    messages: {}
   }),
   mounted() {
     const ref = firebase.database().ref('messages').limitToLast(10)

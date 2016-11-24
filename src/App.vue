@@ -51,6 +51,19 @@ export default {
 .flex-fixed {
   flex-shrink: 0;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border: 1px solid #999;
+}
 </style>
 
 <style scoped>

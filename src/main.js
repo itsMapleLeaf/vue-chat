@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
-import App from './App.vue'
+import App from './app.vue'
 import 'vue-material/dist/vue-material.css'
 
 Vue.use(VueMaterial)

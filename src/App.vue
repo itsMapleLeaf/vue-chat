@@ -1,16 +1,6 @@
 <template>
   <div class="container flex-vertical" v-md-theme="'default'">
-    <md-list class="chat-messages flex-grow">
-      <md-list-item v-for="{ text, time } in messages">
-        <md-avatar class="md-avatar-icon">
-          <md-icon>favorite</md-icon>
-        </md-avatar>
-        <div class="md-list-text-container">
-          <span>{{ text }}</span>
-          <span>{{ time }}</span>
-        </div>
-      </md-list-item>
-    </md-list>
+    <chat-messages class="chat-messages flex-grow" v-bind="{ messages }"></chat-messages>
     <form class="chat-input-form flex-fixed flex-row" @submit.stop.prevent="chatSubmit">
       <md-input-container class="chat-input-container flex-grow">
         <md-input class="chat-input" placeholder="Say something!" v-model="chatInput"></md-input>
@@ -21,8 +11,13 @@
 </template>
 
 <script>
+import ChatMessages from './chat-messages.vue'
+
 export default {
-  name: 'App',
+  name: 'app',
+  components: {
+    ChatMessages
+  },
   data: () => ({
     messages: [],
     chatInput: ''
@@ -70,10 +65,6 @@ export default {
 <style scoped>
 .container {
   height: 100vh;
-}
-
-.chat-messages {
-  overflow-y: auto;
 }
 
 .chat-input-form {

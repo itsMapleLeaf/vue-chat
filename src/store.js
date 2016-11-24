@@ -13,7 +13,7 @@ export default {
       await this.signIn()
 
       const ref = firebase.database().ref('messages')
-      ref.on('child_added', this.messageAdded.bind(this))
+      ref.limitToLast(10).on('child_added', this.messageAdded.bind(this))
       ref.on('child_removed', this.messageDeleted.bind(this))
     }
     catch (error) {

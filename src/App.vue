@@ -15,7 +15,7 @@
       <md-input-container class="chat-input-container flex-grow">
         <md-input class="chat-input" placeholder="Say something!" v-model="chatInput"></md-input>
       </md-input-container>
-      <md-button class="chat-send md-primary">Send</md-button>
+      <md-button class="chat-send md-primary" @click="chatSubmit">Send</md-button>
     </form>
   </div>
 </template>

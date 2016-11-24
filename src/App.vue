@@ -21,7 +21,13 @@ export default {
     chatInput: ''
   }),
   mounted() {
-    firebase.database().ref('messages').on('child_added', this.updateMessages)
+    firebase.database()
+      .ref('messages')
+      .limitToLast(10)
+      .on('child_added', this.updateMessages)
+  },
+  destroyed() {
+    firebase.database().ref('messages').off('child_added', this.updateMessages)
   },
   methods: {
     async chatSubmit(text) {

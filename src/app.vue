@@ -8,7 +8,7 @@
 <script>
 import ChatMessages from './chat-messages.vue'
 import ChatInput from './chat-input.vue'
-import * as firebase from 'firebase'
+import store from './store'
 
 export default {
   name: 'app',
@@ -16,34 +16,13 @@ export default {
     ChatMessages,
     ChatInput,
   },
-  data: () => ({
-    messages: {}
-  }),
-  mounted() {
-    const ref = firebase.database().ref('messages').limitToLast(10)
-    ref.on('child_added', this.addMessage)
-    ref.on('child_removed', this.deleteMessage)
-  },
-  destroyed() {
-    const ref = firebase.database().ref('messages')
-    ref.off('child_added', this.addMessage)
-    ref.off('child_removed', this.deleteMessage)
+  data () {
+    return { messages: store.data.messages }
   },
   methods: {
     async chatSubmit(text) {
-      const time = new Date().toLocaleTimeString()
-      const message = { text, time }
-
-      const db = firebase.database()
-      const ref = await db.ref('messages').push()
-      await ref.set(message)
+      store.sendMessage(text)
     },
-    addMessage(data) {
-      this.$set(this.messages, data.key, data.val())
-    },
-    deleteMessage(data) {
-      this.$delete(this.messages, data.key)
-    }
   }
 }
 </script>

@@ -1,17 +1,16 @@
-<template>
-  <div class="container flex-vertical" v-md-theme="'default'">
-    <chat-messages class="flex-grow" v-bind="{ messages }"></chat-messages>
-    <chat-input class="flex-fixed" @submit="chatSubmit"></chat-input>
-  </div>
+<template lang="pug">
+.container.flex-vertical(v-md-theme="'default'")
+  chat-message.flex-grow(v-bind="{ messages }")
+  chat-input.flex-fixed(@submit="chatSubmit")
 </template>
 
 <script>
-import ChatMessages from './chat-messages.vue'
-import ChatInput from './chat-input.vue'
+import ChatMessages from './ChatMessages.vue'
+import ChatInput from './ChatInput.vue'
 import store from './store'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     ChatMessages,
     ChatInput,
@@ -20,7 +19,7 @@ export default {
     messages: Object,
   },
   methods: {
-    async chatSubmit(text) {
+    chatSubmit(text) {
       store.sendMessage(text)
     },
   }

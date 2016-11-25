@@ -1,6 +1,6 @@
 import * as firebase from 'firebase'
 import Vue from 'vue'
-import App from './app.vue'
+import App from './App.vue'
 
 export default {
   data: {
@@ -10,6 +10,7 @@ export default {
   async init() {
     try {
       this.initVue()
+      this.initFirebase()
       await this.signIn()
 
       const ref = firebase.database().ref('messages')
@@ -21,7 +22,7 @@ export default {
     }
   },
 
-  async signIn() {
+  initFirebase() {
     firebase.initializeApp({
       apiKey: "AIzaSyCSJF99jCNQQTUOi2EXd9XU_ZgGGYP6U7Y",
       authDomain: "rpchat-59074.firebaseapp.com",
@@ -29,6 +30,9 @@ export default {
       storageBucket: "rpchat-59074.appspot.com",
       messagingSenderId: "192547961510"
     })
+  },
+
+  async signIn() {
     await firebase.auth().signInAnonymously()
   },
 
